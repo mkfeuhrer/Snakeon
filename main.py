@@ -34,6 +34,28 @@ largefont = pygame.font.SysFont("comicsansms" , 65)
 
 clock = pygame.time.Clock()
 
+def pause():
+	paused = True
+
+	while paused:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_c:
+					paused = False
+
+				elif event.key == pygame.K_q:
+					pygame.quit()
+					quit()
+		gameDisplay.fill(white)
+		message_to_screen("Paused",black,-100,size="large")
+		message_to_screen("Press c to continue , q to quit",black,25)
+		pygame.display.update()
+		clock.tick(5)				
+
 def score(score):
 	text = smallfont.render("Score: "+str(score),True,black)
 	gameDisplay.blit(text,[0,0])
@@ -71,7 +93,7 @@ def game_intro():
 		message_to_screen("The objective of the game is to eat apple as much as you can",black,-30)
 		message_to_screen("More you eat , more you score",black,10)
 		message_to_screen("Running in snake itself or edge will get you lose",black,50)
-		message_to_screen("Press c to play again ,Press q to quit",black,90)
+		message_to_screen("Press c to play again ,Press p to pause or q to quit",black,90,size = "medium")
 		pygame.display.update()
 		clock.tick(10)
 
@@ -159,7 +181,9 @@ def gameLoop():
 				elif event.key == pygame.K_DOWN:
 					direction = "down"
 					lead_y_change += block_size
-					lead_x_change = 0		
+					lead_x_change = 0
+				elif event.key == pygame.K_p:
+					pause()			
 			if lead_x >= display_width or lead_x <= 0 or lead_y >= display_height or lead_y <= 0:
 				gameOver = True		
 						
