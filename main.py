@@ -34,6 +34,9 @@ largefont = pygame.font.SysFont("comicsansms" , 65)
 
 clock = pygame.time.Clock()
 
+def score(score):
+	text = smallfont.render("Score: "+str(score),True,black)
+	gameDisplay.blit(text,[0,0])
 
 def randapplegen():
 	randapplex = random.randrange(0,display_width - appleThickness)
@@ -181,6 +184,7 @@ def gameLoop():
 					gameOver = True
 			
 		snake(snake_list,block_size)
+		score(snakeLength-1)
 
 		pygame.display.update()					
 		
